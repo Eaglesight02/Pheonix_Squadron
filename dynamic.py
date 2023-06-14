@@ -3,32 +3,41 @@ from fastapi import FastAPI, UploadFile, File, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import base64
-# import tensorflow
-# from tensorflow import keras
-# from PIL import Image
-# import matplotlib.pyplot as plt
+import tensorflow
+from tensorflow import keras
+from PIL import Image
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import io
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
+model = keras.models.load_model("/workspace/Pheonix_Squadron/sequential.h5")
+
 @app.get("/")
 async def dynamic_file(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("dynamic.html", {"request": request})
 
 @app.post("/dynamic")
 async def dynamic(request: Request, file: UploadFile = File()):
-    data = file.file.read()
-    file.file.close()
-
+    # data = file.file.read()
+    # file.file.close()
     # encoding the image
-    encoded_image = base64.b64encode(data).decode("utf-8")
+    # encoded_image = base64.b64encode(data).decode("utf-8")
+    data = await file.read()
+    image = Image.open(io.BytesIO(data))
+    image = image.resize((224, 224))
+    image = np.array(image) / 255.0
+    image = np.expand_dims(image, axis = 0)
 
-    #Demo Model Linking
-    # probability = model.predict(img2Array(image))
+    prediction = model.predict(image)
+    return prediction
 
-    return templates.TemplateResponse("dynamic.html", {"request": request,  "img": encoded_image})
+    # return templates.TemplateResponse("dynamic.html", {"request": request,  "img": encoded_image, "probability": prediction})
 
 # # if __name__ == '__dynamic__':
 # #    uvicorn.run(app, host='0.0.0.0', port=8000)
