@@ -11,4 +11,4 @@ python-multipart
 numpy
 Pillow
 matplotlib
-io
+tensorflow

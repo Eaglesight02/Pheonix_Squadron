@@ -16,7 +16,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-model = keras.models.load_model("/workspace/Pheonix_Squadron/sequential.h5")
+model = keras.models.load_model("sequential.h5")
 
 @app.get("/")
 async def dynamic_file(request: Request):
@@ -27,17 +27,18 @@ async def dynamic(request: Request, file: UploadFile = File()):
     # data = file.file.read()
     # file.file.close()
     # encoding the image
-    # encoded_image = base64.b64encode(data).decode("utf-8")
-    data = await file.read()
+    data = file.file.read()
+    encoded_image = base64.b64encode(data).decode("utf-8")
+
     image = Image.open(io.BytesIO(data))
     image = image.resize((224, 224))
     image = np.array(image) / 255.0
     image = np.expand_dims(image, axis = 0)
 
     prediction = model.predict(image)
-    return prediction
+    
 
-    # return templates.TemplateResponse("dynamic.html", {"request": request,  "img": encoded_image, "probability": prediction})
+    return templates.TemplateResponse("dynamic.html", {"request": request,  "img": encoded_image, "probability": prediction})
 
 # # if __name__ == '__dynamic__':
 # #    uvicorn.run(app, host='0.0.0.0', port=8000)
