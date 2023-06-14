@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetic Retinopathy Website</title>
+  <!-- Add your CSS file link here -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header>
+    <!-- Add your logo or website name here -->
+    <h1>Diabetic Retinopathy Website</h1>
+    <nav>
+      <!-- Add navigation links here -->
+      <ul>
+        <li><a href="#Information-section">Information</a></li>
+        <li><a href="#Aboutus-section">About us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero-section">
+    <!-- Add your banner image and headline here -->
+    <h2>Upload your Fundus image below and our ML model will give a probability of existenece of Diabetic Retinopathy in your image.</h2>
+    <img src="banner.jpg" alt="Banner Image">
+  </section>
+
+  <section id="upload-section">
+  <form action="upload.php" method="POST" enctype="multipart/form-data">
+    <div>
+      <input type="file" id="image-upload" name="image" accept=".jpg, .jpeg, .png">
+      <button type="submit">Upload</button>
+    </div>
+  </form>
+  <p>Please upload your retinal image for analysis.</p>
+  
+  <div id="uploaded-image-container"></div>
+</section>
+
+  <section id="information-section">
+    <h2>Diabetic Retinopathy Information</h2>
+    <!-- Add detailed information about Diabetic Retinopathy here -->
+    <p>Diabetic retinopathy is a complication of diabetes that affects the eyes...</p>
+  </section>
+
+  <footer>
+    <ul>
+      <!-- Add your contact and social media links here -->
+      <li><a href="mailto:contact@example.com">Email</a></li>
+      <li><a href="tel:+123456789">Phone</a></li>
+      <li><a href="https://www.facebook.com/example">Facebook</a></li>
+      <li><a href="https://www.twitter.com/example">Twitter</a></li>
+    </ul>
+    <p>&copy; 2023 Diabetic Retinopathy Website. All rights reserved.</p>
+  </footer>
+
+  <!-- Add your JavaScript file link here -->
+  <script src="../static/script.js"></script>
+</body>
+</html>
