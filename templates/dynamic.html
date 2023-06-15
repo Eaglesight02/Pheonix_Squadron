@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Rendering Dynamic Images Using FastAPI</title>
+  </head>
+  <body>
+
+    <form action="/dynamic" enctype="multipart/form-data" method="POST">
+      <input name="file" type="file" />
+      <input type="submit" />
+    </form>
+
+    {% if img %}
+    <h1>Rendered Image</h1>
+    <img src="data:image/jpeg;base64,{{ img }}" />
+    <h1>Probability of Having Diabetic Retinopathy : {{ probability[0][0] }}</h1>
+    {% else %}
+    <h1>Image will be render here...</h1>
+    {% endif %}
+
+  </body>
+</html>
