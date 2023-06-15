@@ -27,16 +27,36 @@
   </section>
 
   <section id="upload-section">
-  <form action="upload.php" method="POST" enctype="multipart/form-data">
-    <div>
-      <input type="file" id="image-upload" name="image" accept=".jpg, .jpeg, .png">
-      <button type="submit">Upload</button>
-    </div>
+    <form action="/dynamic" method="POST" enctype="multipart/form-data">
+        <input type="file" id="image-upload" name="file" accept=".jpg, .jpeg, .png">
+        <button type="submit">Upload</button>
+    </form>
+    <p>Please upload your retinal image for analysis.</p>
+    
+    {% if img %}
+    <h1>Rendered Image</h1>
+    <img src="data:image/jpeg;base64,{{ img }}" />
+    <h1>Probability of Having Diabetic Retinopathy : {{ probability[0][0] }}</h1>
+    {% else %}
+    <h1>Image Not Found</h1> 
+    {% endif %}
+
+    <!-- <div id="uploaded-image-container"></div>
+    <div id="prediction"></div> -->
+  </section>
+
+  <!-- <form action="/dynamic" method="POST" enctype="multipart/form-data">
+    <input type="file" id="image-upload" name="image" accept=".jpg, .jpeg, .png">
+    <button type="submit">Upload</button>
   </form>
-  <p>Please upload your retinal image for analysis.</p>
   
-  <div id="uploaded-image-container"></div>
-</section>
+  {% if img %}
+  <h1>Rendered Image</h1>
+  <img src="data:image/jpeg;base64,{{ img }}" />
+  <h1>Probability of Having Diabetic Retinopathy : {{ probability[0][0] }}</h1>
+  {% else %}
+  <h1>Image Not Found</h1>
+  {% endif %} -->
 
   <section id="information-section">
     <h2>Diabetic Retinopathy Information</h2>
@@ -56,6 +76,6 @@
   </footer>
 
   <!-- Add your JavaScript file link here -->
-  <script src="../static/script.js"></script>
+  <!-- <script src="../static/script.js"></script> -->
 </body>
 </html>
