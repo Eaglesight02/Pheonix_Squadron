@@ -9,4 +9,4 @@ COPY . /code
 # install the rwquirements
 RUN pip install -r requirements.txt
 # The last line is always a CMD in docker
-CMD ["uvicorn", "dynamic:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "dynamic:app", "--reload", "--host", "0.0.0.0", "--port", "8080"]

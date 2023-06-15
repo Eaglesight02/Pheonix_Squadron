@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
      # We are using ports 8000 both on host and on the server
     ports:
-      - "8000:8000"
+      - "8080:8080"
      # Mounting our Current Working Directory to the
     volumes:
       - ".:${CWD:-/code}"
