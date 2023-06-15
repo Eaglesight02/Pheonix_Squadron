@@ -3,6 +3,7 @@ from fastapi import FastAPI, UploadFile, File, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import base
 import base64
 import tensorflow
 from tensorflow import keras
@@ -24,12 +25,12 @@ async def dynamic_file(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/dynamic")
-async def dynamic(request: Request, file: UploadFile = File()):
+async def dynamic(filerequest: FileRequest()):
     # data = file.file.read()
     # file.file.close()
     # encoding the image
     data = await file.read()
-    encoded_image = base64.b64encode(data).decode("utf-8")
+    # encoded_image = base64.b64encode(data).decode("utf-8")
 
     image = Image.open(io.BytesIO(data))
     image = image.resize((224, 224))
@@ -39,7 +40,7 @@ async def dynamic(request: Request, file: UploadFile = File()):
     prediction = model.predict(image)
     
 
-    return templates.TemplateResponse("index.html", {"request": request, "img": encoded_image, "probability": prediction})
+    return templates.TemplateResponse("index.html", {"request": request, "probability": prediction})
 
 # # if __name__ == '__dynamic__':
 # #    uvicorn.run(app, host='0.0.0.0', port=8000)
