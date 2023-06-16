@@ -36,28 +36,29 @@ async def dynamic_file(request: Request):
 #     return templates.TemplateResponse("/dynamic", {"request": request, "path": path})
 
 @app.post("/dynamic")
-async def dynamic(request: Request, path: Annotated[str, Form()]):
+async def dynamic(request: Request, file: Annotated[UploadFile, File(...)]):
     # data = file.file.read()
     # file.file.close()
     # encoding the image
-    # data = await image.read()
+    data = await file.read()
     # encoded_image = base64.b64encode(data).decode("utf-8")
 
     # file = open(path, 'rb')
     # encoded_Data = await file.read()
-    file.close()
-    decoded_Image = base64.b64decode((path))
+    # file.close()
 
-    # image = Image.open(decoded_Image)
-    # image = image.resize((224, 224))
-    # image = np.array(image) / 255.0
-    # image = np.expand_dims(image, axis = 0)
+# decoded_Image = base64.b64decode(path)
 
-    # shape = image.shape
+    image = Image.open(io.BytesIO(data))
+    image = image.resize((224, 224))
+    image = np.array(image) / 255.0
+    image = np.expand_dims(image, axis = 0)
+
+    shape = image.shape
     # prediction = model.predict(image)
     prediction = [[0.8881818111881]]
 
-    return templates.TemplateResponse("index.html", {"request": request, "img_Path": decoded_Image, "probability": prediction})
+    return templates.TemplateResponse("index.html", {"request": request, "img_Path": shape, "probability": prediction})
 
 # # if __name__ == '__dynamic__':
 # #    uvicorn.run(app, host='0.0.0.0', port=8000)
