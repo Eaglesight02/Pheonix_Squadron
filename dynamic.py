@@ -36,11 +36,11 @@ async def dynamic_file(request: Request):
 #     return templates.TemplateResponse("/dynamic", {"request": request, "path": path})
 
 @app.post("/dynamic")
-async def dynamic(request: Request, file: Annotated[UploadFile, File(...)]):
+async def dynamic(request: Request, image: Annotated[UploadFile, File(...)]):
     # data = file.file.read()
     # file.file.close()
     # encoding the image
-    data = await file.read()
+    data = await image.read()
     # encoded_image = base64.b64encode(data).decode("utf-8")
 
     # file = open(path, 'rb')

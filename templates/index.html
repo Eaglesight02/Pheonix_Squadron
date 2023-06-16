@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diabetic Retinopathy Detection</title>
+  <title>Lung Disease Detection</title>
   <!-- Add your CSS file link here -->
   <link rel="stylesheet" href="/static/css/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -12,18 +12,41 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-  </head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
+    integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <style>
+    .container1 {
+      max-width: 500px;
+      margin: 40px auto;
+    }
+
+    .image-preview {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
 
 <body>
-    <section id="nav-bar">
+  <section id="nav-bar">
     <nav class="navbar navbar-expand-lg navbar-light " style="background-color: hsl(195, 94%, 88%);">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="/static/images/eye_Manoj.jpeg" alt="logo" style="height:50px;width:80px"></a>
+        <a class="navbar-brand" href="#"><img src="/static/images/eye_Manoj.jpeg" alt="logo"
+            style="height:50px;width:80px"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         
+
           <i class="fa fa-bars" aria-hidden="true"></i>
 
         </button>
@@ -35,7 +58,7 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">ABOUT US</a>
             </li>
-           
+
             <li class="nav-item">
               <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">FAQ'S</a>
             </li>
@@ -55,61 +78,125 @@
     </nav>
   </section>
 
-   <section id="banner">
-      <div class='container'>
-        <div class="row">
-          <div class="col-md-6">
-            <p class="title">Upload the Fundus Image </p>
-            <p>We will give you the Report</p>
-          
-            <div class="drag-area">
-              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-              <header>Drag & Drop to Upload File</header>
-              <span>OR</span>
-              
-              <button>Browse File</button>
-              <input type="file" name="image" hidden>
-            </div>
-            <script src="/static/script_01.js"></script>
-    
-          </div>
-
-          <div class="col-md-6 text-center">
-            <img src="/static/images/home_Image.jpeg" class="img-fluid" style="width:500px;height:400px; padding-bottom:25px;" alt = "Background">
-          </div>
-        </div>
-      </div>
-      <img src="/static/images/wave1.png" class="bottom-img">
-
-    <!-- <section id="upload-section">
-      <form action="upload.php" method="POST" enctype="multipart/form-data">
-        <div>
-          <input type="file" id="image-upload" name="image" accept=".jpg, .jpeg, .png">
-          <button type="submit">Upload</button>
-        </div>
-      </form>
-      <p>Please upload your X-ray image for analysis.</p> -->
+  <section id="banner">
+    <div class='container'>
+      <div class="row">
+        <div class="col-md-6">
       
-      <!-- <div id="uploaded-image-container"></div>
-    </section> -->
-<!-- 
-    <section id = "Result">
-      <div id="result_Container"></div>
-      <script src="/static/script_01.js"></script>
-    </section> -->
+                  <p class="title">Upload the Fundus Image </p>
+                  <p>We will give you the Report</p>
 
-    <section id ="Report">
-    <form action="/dynamic" method="POST", enctype="multipart/form-data">
-      <div>
-        <input type = "file" name = "file"/>
-        <!-- <textarea id = "result_Container", name = "path" hidden></textarea> -->
-        <button type="submit">Result</button>
-        <script src="/static/script_01.js"></script>
+                  <div class="drag-area">
+                    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <header>Drag & Drop to Upload File</header>
+                    <span>OR</span>
+
+                    <button>Browse File</button>
+                    <input type="file" name="image" hidden>
+                  </div>
+
+                </div>
+        
+
+
+        <div class="col-md-6 text-center">
+          <img src="/static/images/home_Image.jpeg" class="img-fluid top-img"
+            style="width:500px;height:400px; padding-bottom:25px;">
+        </div>
       </div>
-    </form>
-  </section>
+    </div>
+    <img src="/static/images/wave1.png" class="bottom-img">
+    <!-- Add your banner image and headline here -->
 
-<!-- <section id="Display">
+  </section>
+  <button class="btn btn-secondary Open_button" onclick="toggleForm()">Form</button>
+    <section id="form-data">
+        <div class="container1">
+          <h2>Patient Data Form</h2>
+          <div id="formContainer" style="display: none;">
+            <form action="/dynamic" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+        >        <label for="name">Name</label>
+                <input type="text" class="form-control" name="patient_Name" id="name" placeholder="Enter patient name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="patient_Email" placeholder="Enter patient email">
+              </div>
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="patient_Age" placeholder="Enter patient age">
+              </div>
+              <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" name="Gender" id="gender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <!-- <div class="form-group">
+                <label for="Image_type">Image Type</label>
+                <select class="form-control" name="image_Type" id="image_type">
+                  <option value="X-ray">X-ray</option>
+                  <option value="CT">CT Scan</option>
+                </select>
+              </div> -->
+              <!-- <div class="form-group">
+                <label for="address">Address</label>
+                <textarea class="form-control" id="address" rows="3"  name="patient_Address" placeholder="Enter patient address"></textarea>
+              </div> -->
+              <div class="form-group">
+                <label for="xray">Fundus Image (Drag and drop here)</label>
+                <div class="image-preview" id="imagePreview">
+                  <img src="" alt="Image Preview">
+                </div>
+                <input type="file" class="form-control-file" id="xray" name="image" accept="image/*" onchange="previewImage(event)">
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+            </form>
+          </div>
+        </section>
+        </div>
+      <!-- Bootstrap JS -->
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script>
+        function toggleForm() {
+          var formContainer = document.getElementById("formContainer");
+          var button = document.querySelector("button");
+    
+          if (formContainer.style.display === "none") {
+            formContainer.style.display = "block";
+            button.innerText = "Close Form";
+          } else {
+            formContainer.style.display = "none";
+            button.innerText = "Open Form";
+      }
+    }
+
+    function submitForm() {
+      // Add your code here to handle form submission
+      // alert("Form submitted successfully!");
+      toggleForm(); // Hide the form after submission
+    }
+
+    function previewImage(event) {
+      var reader = new FileReader();
+      var imagePreview = document.getElementById("imagePreview");
+      var image = imagePreview.querySelector("img");
+
+      reader.onload = function () {
+        image.src = reader.result;
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+
+
+
+
+    <!-- <section id="Display">
    
       <div >
         <button type="submit">Result</button>
@@ -119,21 +206,18 @@
 
 
     <div id="output">
-      <!-- <p id = "result_Container"></p> -->
-      <!-- <img src = "{{img_Path}}" alt ="Response Image"> -->
-      <h1>{{ img_Path }}</h1>
-      <h1>Probability of Having Diabetic Retinopathy : {{ probability[0][0] * 100}} %</h1>
-      <script src="/static/script_01.js"></script>
-    </div>
 
-    <section id= "information-section">
+      <h1>Probability of Having Diabetic Retinopathy :{{ probability[0][0] * 100 }}</h1>
+
+    </div>
+    <section id="information-section">
       <h2>Diabetic Retinopathy Information</h2>
       <!-- Add detailed information about Diabetic Retinopathy here -->
-      <p>There are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
+      <p>Thee are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
     </section>
 
 
-   
+
     <footer>
       <ul>
         <!-- Add your contact and social media links here -->

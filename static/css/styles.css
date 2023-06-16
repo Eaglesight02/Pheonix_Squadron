@@ -150,7 +150,7 @@ body {
 {
   background-image:linear-gradient(to right,#d3e6f8,#3295eb);
   color:#121111;
-  padding-top:1%;
+  padding-top: 1%;
 }
 
 .title
@@ -165,6 +165,10 @@ body {
   width:100%;
 }
 
+.top-img
+{
+  margin-top: 20px;;
+}
 /*-----Upload section-----*/
 
 .drag-area{
@@ -182,11 +186,11 @@ body {
   border: 2px solid #c3dffd;
 }
 .drag-area .icon{
-  font-size: 100px;
+  font-size: 70px;
   color: #f4fcff62;
 }
 .drag-area header{
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 500;
   color: #ebedef;
 }
@@ -198,12 +202,12 @@ body {
 }
 .drag-area button{
   padding: 10px 25px;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 400;
   border: none;
   outline: none;
-  background: #aad5ff;
-  color: #191a1b;
+  background: #1f363f;
+  color: #f7fbff;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -214,7 +218,20 @@ body {
   border-radius: 5px;
 }
 
-
+/* From section */
+#form-data
+{
+  background-image:linear-gradient(to right,#f9fafc,#f9fcff);
+}
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+}
+.Open_button
+{
+  margin-left: 5px;
+  border-radius: 3px;
+}
 
 /* Information section */
 #information-section {
