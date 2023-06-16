@@ -3,6 +3,7 @@ from fastapi import FastAPI, UploadFile, File, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from typing import Annotated
 from pydantic import BaseModel
 import base64
 import tensorflow
@@ -29,13 +30,13 @@ async def dynamic_file(request: Request):
     prediction = [[0]]
     return templates.TemplateResponse("index.html", {"request": request, "img_Path": path ,"probability": prediction})
 
-@app.post("/sendURL")
-async def sendURL(request: Request, item: Item):
-    path = item.image_Path
-    return templates.TemplateResponse("/dynamic", {"request": request, "path": path})
+# @app.post("/sendURL")
+# async def sendURL(request: Request, item: Item):
+#     path = item.image_Path
+#     return templates.TemplateResponse("/dynamic", {"request": request, "path": path})
 
 @app.post("/dynamic")
-async def dynamic(request: Request, path: str):
+async def dynamic(request: Request, path: Annotated[str, Form()]):
     # data = file.file.read()
     # file.file.close()
     # encoding the image
