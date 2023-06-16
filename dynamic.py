@@ -19,7 +19,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-# model = keras.models.load_model("sequential.h5")
+#model = keras.models.load_model("sequential.h5")
 
 class Item(BaseModel):
     image_Path : str | None = None
