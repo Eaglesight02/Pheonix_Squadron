@@ -43,15 +43,21 @@ async def dynamic(request: Request, path: Annotated[str, Form()]):
     # data = await image.read()
     # encoded_image = base64.b64encode(data).decode("utf-8")
 
-    # image = Image.open(item.image_Path)
+    # file = open(path, 'rb')
+    # encoded_Data = await file.read()
+    file.close()
+    decoded_Image = base64.b64decode((path))
+
+    # image = Image.open(decoded_Image)
     # image = image.resize((224, 224))
     # image = np.array(image) / 255.0
     # image = np.expand_dims(image, axis = 0)
 
+    # shape = image.shape
     # prediction = model.predict(image)
     prediction = [[0.8881818111881]]
 
-    return templates.TemplateResponse("index.html", {"request": request, "img_Path": path, "probability": prediction})
+    return templates.TemplateResponse("index.html", {"request": request, "img_Path": decoded_Image, "probability": prediction})
 
 # # if __name__ == '__dynamic__':
 # #    uvicorn.run(app, host='0.0.0.0', port=8000)
