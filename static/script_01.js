@@ -48,6 +48,7 @@ function showFile(){
     {
       let fileURL = fileReader.result; //passing user file source in fileURL variable
         // UNCOMMENT THIS BELOW LINE. I GOT AN ERROR WHILE UPLOADING THIS POST SO I COMMENTED IT
+      document.getElementById("result_Container").value= fileURL;
       let imgTag = `<img src="${fileURL}" alt="image">`; //creating an img tag and passing user selected file source inside src attribute
       dropArea.innerHTML = imgTag; //adding that created img tag inside dropArea container
     }
@@ -59,4 +60,28 @@ function showFile(){
     dropArea.classList.remove("active");
     dragText.textContent = "Drag & Drop to Upload File";
   }
+
+  // const response = fetch("/dynamic", {
+  //   method: 'POST',
+  //   body: {image_Path : fileURL},
+  //   });
+    
+  // response.json().then(data => {
+  //     console.log(JSON.stringify(data));
+  //   });
+
+
+  // let xhr = new XMLHttpRequest();
+  // xhr.open("POST", "/sendURL");
+  // xhr.setRequestHeader("Accept", "application/json");
+  // xhr.setRequestHeader("Content-Type", "application/json");
+
+  // xhr.onreadystatechange = function () {
+  //   if (xhr.readyState === 4) {
+  //     console.log(xhr.status);
+  //     console.log(xhr.responseText);}};
+
+  // let data = `{image_Path: fileURL}`;
+  // xhr.send(data);
 }
+

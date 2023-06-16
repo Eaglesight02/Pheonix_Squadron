@@ -28,8 +28,8 @@
 
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
+          <ul class="navbar-nav ms-auto" style="float:right">
+            <li class="nav-item" style="float:right">
               <a class="nav-link active" aria-current="page" href="#">HOME</a>
             </li>
             <li class="nav-item">
@@ -37,53 +37,49 @@
             </li>
            
             <li class="nav-item">
-              <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">INFORMATION</a>
+              <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">FAQ'S</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">CONTACT US</a>
+              <a class="nav-link active" aria-current="page" href="#">SIGNUP/LOGIN</a>
             </li>
           </ul>
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-but">
-              <a class="btn btn-outline light" aria-current="page" href="#">SIGNUP</a>
+
+          <!-- <ul class="navbar-nav ms-auto" >
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">SIGNUP/LOGIN</a>
             </li>
-            <li class="nav-but-outline light">
-              <a class="btn btn" href="#">LOGIN</a>
-          </ul>
+      
+          </ul> -->
         </div>
       </div>
     </nav>
   </section>
 
-
-   
-    <section id="banner">
+   <section id="banner">
       <div class='container'>
         <div class="row">
           <div class="col-md-6">
-            <p class="title">Upload the Lung X-ray </p>
-            <p>We will give you the Complete report</p>
+            <p class="title">Upload the Fundus Image </p>
+            <p>We will give you the Report</p>
+          
+            <div class="drag-area">
+              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              <header>Drag & Drop to Upload File</header>
+              <span>OR</span>
+              
+              <button>Browse File</button>
+              <input type="file" name="image" hidden>
+            </div>
+            <script src="/static/script_01.js"></script>
+    
           </div>
+
           <div class="col-md-6 text-center">
             <img src="/static/images/Background.webp" class="img-fluid" style="width:500px;height:400px; padding-bottom:25px;" alt = "Background">
           </div>
         </div>
       </div>
       <img src="/static/images/wave1.png" class="bottom-img">
-      <!-- Add your banner image and headline here -->
-    </section>
-      <section id="Image-upload">
-        <div class="drag-area">
-          <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-          <header>Drag & Drop to Upload File</header>
-          <span>OR</span>
-          <button>Browse File</button>
-          <input type="file" name="image" hidden>
-        </div>
-        <script src="/static/script_01.js"></script>
-      
-        </section>
-  
 
     <!-- <section id="upload-section">
       <form action="upload.php" method="POST" enctype="multipart/form-data">
@@ -95,28 +91,42 @@
       <p>Please upload your X-ray image for analysis.</p> -->
       
       <!-- <div id="uploaded-image-container"></div>
-    </section>
-    <form action="/report" method="POST" enctype="multipart/form-data">
-      <div>
-        <input type="file" id="image-upload" name="image" accept=".jpg, .jpeg, .png">
-        <button type="submit">Result</button>
-      </div>
-    </form> -->
+    </section> -->
+<!-- 
+    <section id = "Result">
+      <div id="result_Container"></div>
+      <script src="/static/script_01.js"></script>
+    </section> -->
 
+    <section id ="Report">
     <form action="/dynamic" method="POST">
       <div>
+        <input type="text", text=result_Container, hidden>
+        <button type="submit">Result</button>
+      </div>
+    </form>
+  </section>
+
+<!-- <section id="Display">
+   
+      <div >
         <button type="submit">Result</button>
         </div>
-        </form>
-        {% if img %}
-        <h1>Probability of Having Pneumonia :{{result}}</h1>
-        {% endif %}
+        <script src="/static/script1.js"></script>
+      </section> -->
 
 
+    <div id="output">
+
+      <h1 id = "result_Container"></h1>
+      <h1>Probability of Having Diabetic Retinopathy : {{ probability[0][0] * 100}} %</h1>
+      <script src="/static/script_01.js"></script>
+
+    </div>
     <section id= "information-section">
-      <h2>Lung Diseases Information</h2>
+      <h2>Diabetic Retinopathy Information</h2>
       <!-- Add detailed information about Diabetic Retinopathy here -->
-      <p>The main 3 types of Lung Diseases are Pneumonia , Tuberculosis,Lung Cancer...</p>
+      <p>There are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
     </section>
 
 
