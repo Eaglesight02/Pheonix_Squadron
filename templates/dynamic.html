@@ -12,7 +12,7 @@
     {% if img %}
     <h1>Rendered Image</h1>
     <img src="data:image/jpeg;base64,{{ img }}" />
-    <h1>Probability of Having Diabetic Retinopathy : { prediction }</h1>
+    <h1>Probability of Having Diabetic Retinopathy : {{ probability[0][0] }}</h1>
     {% else %}
     <h1>Image will be render here...</h1>
     {% endif %}
