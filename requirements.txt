@@ -12,3 +12,7 @@ numpy
 Pillow
 matplotlib
 tensorflow
+h5py
+google-cloud-bigquery
+db-dtypes
+google-cloud-storage

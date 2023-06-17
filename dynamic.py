@@ -13,6 +13,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import io
+import os
+
+from google.cloud import bigquery, storage
+from google.oauth2 import service_account
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -50,13 +54,37 @@ async def dynamic(request: Request, image: Annotated[UploadFile, File(...)]):
 # decoded_Image = base64.b64decode(path)
 
     image = Image.open(io.BytesIO(data))
-    image = image.resize((224, 224))
+    image = image.resize((228, 228))
     image = np.array(image) / 255.0
     image = np.expand_dims(image, axis = 0)
 
+    bucket_name = "diabetic-retinopathy_01"
+    models = ["IncpetionV3.h5"]
+    # Create a client instance
+    key_path = "cloudkarya-internship-bca5dd5466a5.json"
+    client = storage.Client.from_service_account_json(key_path)
+
+
+    # Retrieve the bucket
+    bucket = client.get_bucket(bucket_name)
+
+    # Retrieve the blob
+    pred=[]
+
+    for model_file in models:
+        blob = bucket.blob(model_file)
+        blob.download_to_filename(model_file)
+
+        model = keras.models.load_model(model_file)
+        predictions = model.predict(image)
+        pred.append(predictions)
+
+        os.remove(model_file)
+
     shape = image.shape
-    # prediction = model.predict(image)
-    prediction = [[0.8881818111881]]
+    #prediction = model.predict(image)
+    prediction = pred[0]*100
+    #prediction = [[0.8881818111881]]
 
     return templates.TemplateResponse("index.html", {"request": request, "img_Path": shape, "probability": prediction})
 
