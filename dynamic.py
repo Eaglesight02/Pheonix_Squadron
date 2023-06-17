@@ -36,7 +36,11 @@ async def dynamic_file(request: Request):
 #     return templates.TemplateResponse("/dynamic", {"request": request, "path": path})
 
 @app.post("/dynamic")
-async def dynamic(request: Request, image: Annotated[UploadFile, File(...)]):
+async def dynamic(request: Request, image: Annotated[UploadFile, File(...)],
+                       patient_Name: Annotated[str,Form(...)],
+                       patient_Age: Annotated[str,Form(...)],
+                       patient_Email: Annotated[str,Form(...)],
+                       Gender: Annotated[str,Form(...)]):
     # data = file.file.read()
     # file.file.close()
     # encoding the image
@@ -49,16 +53,16 @@ async def dynamic(request: Request, image: Annotated[UploadFile, File(...)]):
 
 # decoded_Image = base64.b64decode(path)
 
-    image = Image.open(io.BytesIO(data))
-    image = image.resize((224, 224))
-    image = np.array(image) / 255.0
-    image = np.expand_dims(image, axis = 0)
+    img = Image.open(io.BytesIO(data))
+    img = img.resize((224, 224))
+    img = np.array(img) / 255.0
+    img = np.expand_dims(img, axis = 0)
 
-    shape = image.shape
+    shape = img.shape
     # prediction = model.predict(image)
     prediction = [[0.8881818111881]]
 
-    return templates.TemplateResponse("index.html", {"request": request, "img_Path": shape, "probability": prediction})
+    return templates.TemplateResponse("index.html", {"request": request, "img_Path": shape, "img": image, "probability": prediction, "patient_Name": patient_Name, "patient_Age": patient_Age, "patient_Email": patient_Email, "Gender": Gender})
 
 # # if __name__ == '__dynamic__':
 # #    uvicorn.run(app, host='0.0.0.0', port=8000)

@@ -35,6 +35,28 @@
       max-width: 100%;
       max-height: 100%;
     }
+    .table-container {
+      max-width: 500px;
+      margin: 40px auto;
+      
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #f8f8f8;
+      float: left;
+    }
+
+    th, td {
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
   </style>
 </head>
 
@@ -109,7 +131,7 @@
     <!-- Add your banner image and headline here -->
 
   </section>
-  <button class="btn btn-secondary Open_button" onclick="toggleForm()">Form</button>
+  <button class="btn btn-secondary Open_button" onclick="toggleForm()" onclick="removeTable()">Form</button>
     <section id="form-data">
         <div class="container1">
           <h2>Patient Data Form</h2>
@@ -156,7 +178,7 @@
               <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
             </form>
           </div>
-        </section>
+
         </div>
       <!-- Bootstrap JS -->
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -192,9 +214,42 @@
       reader.readAsDataURL(event.target.files[0]);
     }
   </script>
+  </section>
 
-
-
+  <section id="table">
+  {% if img %}
+  <div class="table-container">
+    <h2>Patient Details</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <td>{{patient_Name}}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{patient_Email}}</td>
+      </tr>
+      <tr>
+        <th>Age</th>
+        <td>{{patient_Age}}</td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td>{{Gender}}</td>
+      </tr>
+    </table>
+   
+  </div>
+  </section>
+  
+  <script>
+  
+        function removeTable() {
+        var table = document.getElementById("patientTable");
+        table.style.display = "none";
+      }
+  </script>
+  
 
     <!-- <section id="Display">
    
@@ -205,11 +260,14 @@
       </section> -->
 
 
-    <div id="output">
+  <div id="output">
 
-      <h1>Probability of Having Diabetic Retinopathy :{{ probability[0][0] * 100 }}</h1>
+    <h1>Probability of Having Diabetic Retinopathy :{{ probability[0][0] * 100 }}</h1>
 
-    </div>
+  </div>
+
+  {% endif %}
+
     <section id="information-section">
       <h2>Diabetic Retinopathy Information</h2>
       <!-- Add detailed information about Diabetic Retinopathy here -->
