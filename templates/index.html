@@ -35,29 +35,6 @@
       max-width: 100%;
       max-height: 100%;
     }
-
-    .table-container {
-      max-width: 500px;
-      margin: 40px auto;
-      
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #f8f8f8;
-      float: left;
-    }
-
-    th, td {
-      padding: 12px 20px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
   </style>
 </head>
 
@@ -120,6 +97,8 @@
 
                 </div>
         
+
+
         <div class="col-md-6 text-center">
           <img src="/static/images/home_Image.jpeg" class="img-fluid top-img"
             style="width:500px;height:400px; padding-bottom:25px;">
@@ -130,7 +109,7 @@
     <!-- Add your banner image and headline here -->
 
   </section>
-  <button class="btn btn-secondary Open_button" onclick="toggleForm()" onclick="removeTable()">Form</button>
+  <button class="btn btn-secondary Open_button" onclick="toggleForm()">Form</button>
     <section id="form-data">
         <div class="container1">
           <h2>Patient Data Form</h2>
@@ -177,7 +156,7 @@
               <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
             </form>
           </div>
-        <!-- </section> -->
+        </section>
         </div>
       <!-- Bootstrap JS -->
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -188,65 +167,34 @@
     
           if (formContainer.style.display === "none") {
             formContainer.style.display = "block";
-            button.innerText = "Close Form";}
-           else {
+            button.innerText = "Close Form";
+          } else {
             formContainer.style.display = "none";
-            button.innerText = "Open Form";}
-          }
+            button.innerText = "Open Form";
+      }
+    }
 
-        function submitForm() {
-          // Add your code here to handle form submission
-          // alert("Form submitted successfully!");
-          toggleForm(); // Hide the form after submission
-        }
+    function submitForm() {
+      // Add your code here to handle form submission
+      // alert("Form submitted successfully!");
+      toggleForm(); // Hide the form after submission
+    }
 
-        function previewImage(event) {
-          var reader = new FileReader();
-          var imagePreview = document.getElementById("imagePreview");
-          var image = imagePreview.querySelector("img");
+    function previewImage(event) {
+      var reader = new FileReader();
+      var imagePreview = document.getElementById("imagePreview");
+      var image = imagePreview.querySelector("img");
 
-          reader.onload = function () {
-            image.src = reader.result;
-          };
+      reader.onload = function () {
+        image.src = reader.result;
+      };
 
-          reader.readAsDataURL(event.target.files[0]);
-        }
-      </script>
-    </section>
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
 
-    <section id="table">
-    {% if img %}
-    <div class="table-container">
-      <h2>Patient Details</h2>
-      <table>
-        <tr>
-          <th>Name</th>
-          <td>{{patient_Name}}</td>
-        </tr>
-        <tr>
-          <th>Email</th>
-          <td>{{patient_Email}}</td>
-        </tr>
-        <tr>
-          <th>Age</th>
-          <td>{{patient_Age}}</td>
-        </tr>
-        <tr>
-          <th>Gender</th>
-          <td>{{Gender}}</td>
-        </tr>
-      </table>
-     
-    </div>
-    </section>
 
-    <script>
 
-      function removeTable() {
-      var table = document.getElementById("patientTable");
-      table.style.display = "none";}
-
-    </script>
 
     <!-- <section id="Display">
    
@@ -256,19 +204,19 @@
         <script src="/static/script1.js"></script>
       </section> -->
 
+
     <div id="output">
 
       <h1>Probability of Having Diabetic Retinopathy :{{ probability[0][0] * 100 }}</h1>
 
     </div>
-
-    {% endif %}
-
     <section id="information-section">
       <h2>Diabetic Retinopathy Information</h2>
       <!-- Add detailed information about Diabetic Retinopathy here -->
       <p>Thee are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
     </section>
+
+
 
     <footer>
       <ul>
