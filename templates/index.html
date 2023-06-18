@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lung Disease Detection</title>
+  <title>Retinal Disease Detection</title>
   <!-- Add your CSS file link here -->
   <link rel="stylesheet" href="/static/css/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -38,7 +38,15 @@
     .table-container {
       max-width: 500px;
       margin: 40px auto;
-      
+      margin-right: 100px;
+    }
+    .image-container {
+      max-width: 500px;
+      max-height: fit-content;
+      margin-left: 100px;
+    }
+    .report {
+      display: flexbox;
     }
 
     table {
@@ -119,8 +127,6 @@
 
                 </div>
         
-
-
         <div class="col-md-6 text-center">
           <img src="/static/images/home_Image.jpeg" class="img-fluid top-img"
             style="width:500px;height:400px; padding-bottom:25px;">
@@ -131,27 +137,31 @@
     <!-- Add your banner image and headline here -->
 
   </section>
-  <button class="btn btn-secondary Open_button" onclick="toggleForm()" onclick="removeTable()">Form</button>
+  <button class="btn btn-secondary Open_button" onclick="toggleForm()">Form</button>
     <section id="form-data">
         <div class="container1">
-          <h2>Patient Data Form</h2>
           <div id="formContainer" style="display: none;">
             <form action="/dynamic" method="POST" enctype="multipart/form-data">
+              <h2>Patient Data Form</h2>
               <div class="form-group">
-        >        <label for="name">Name</label>
-                <input type="text" class="form-control" name="patient_Name" id="name" placeholder="Enter patient name">
+                 <label for="id">Patient ID</label>
+                <input type="text" class="form-control" name="patient_Id" id="id" placeholder="Enter Patient ID">
+              </div>
+              <div class="form-group">
+                 <label for="name">Name</label>
+                <input type="text" class="form-control" name="patient_Name" id="name" placeholder="Enter Patient Name">
               </div>
               <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="patient_Email" placeholder="Enter patient email">
+                <input type="email" class="form-control" id="email" name="patient_Email" placeholder="Enter Patient Email">
               </div>
               <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" class="form-control" id="age" name="patient_Age" placeholder="Enter patient age">
+                <label for="dob-input">Date of Birth</label>
+                <input type="text" id="dob-input" name="patient_Dob" placeholder="Select Date of Birth">
               </div>
               <div class="form-group">
                 <label for="gender">Gender</label>
-                <select class="form-control" name="Gender" id="gender">
+                <select class="form-control" name="patient_Gender" id="gender">
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
@@ -169,11 +179,11 @@
                 <textarea class="form-control" id="address" rows="3"  name="patient_Address" placeholder="Enter patient address"></textarea>
               </div> -->
               <div class="form-group">
-                <label for="xray">Fundus Image (Drag and drop here)</label>
+                <label for="fundus">Fundus Image (Drag and drop here)</label>
                 <div class="image-preview" id="imagePreview">
                   <img src="" alt="Image Preview">
                 </div>
-                <input type="file" class="form-control-file" id="xray" name="image" accept="image/*" onchange="previewImage(event)">
+                <input type="file" class="form-control-file" id="fundus" name="image" accept="image/*" onchange="previewImage(event)">
               </div>
               <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
             </form>
@@ -182,7 +192,13 @@
         </div>
       <!-- Bootstrap JS -->
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      
       <script>
+        
+        flatpickr("#dob-input", {
+        dateFormat: "Y-m-d", // Adjust the format as per your requirement
+      });
+
         function toggleForm() {
           var formContainer = document.getElementById("formContainer");
           var button = document.querySelector("button");
@@ -199,7 +215,8 @@
     function submitForm() {
       // Add your code here to handle form submission
       // alert("Form submitted successfully!");
-      toggleForm(); // Hide the form after submission
+      toggleForm();
+      removeTable(); // Hide the form after submission
     }
 
     function previewImage(event) {
@@ -216,30 +233,53 @@
   </script>
   </section>
 
-  <section id="table">
   {% if img %}
-  <div class="table-container">
-    <h2>Patient Details</h2>
-    <table>
-      <tr>
-        <th>Name</th>
-        <td>{{patient_Name}}</td>
-      </tr>
-      <tr>
-        <th>Email</th>
-        <td>{{patient_Email}}</td>
-      </tr>
-      <tr>
-        <th>Age</th>
-        <td>{{patient_Age}}</td>
-      </tr>
-      <tr>
-        <th>Gender</th>
-        <td>{{Gender}}</td>
-      </tr>
-    </table>
-   
-  </div>
+  <section class = "report">
+    <!-- <div class = "image-container">
+      <img src = "{{ img }}" alt = "Image Not Found">
+      <p>{{ img }}</p>
+    </div> -->
+    <div class = "table-container">
+      <h2>Patient Details</h2>
+      <table>
+        <tr>
+          <th>ID</th>
+          <td>{{ data_Entry["patient_Id"] }}</td>
+        </tr>
+        <tr>
+        <tr>
+          <th>Name</th>
+          <td>{{ data_Entry["patient_Name"] }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ data_Entry["patient_Email"] }}</td>
+        </tr>
+        <tr>
+          <th>Date Of Birth</th>
+          <td>{{ data_Entry["patient_Dob"] }}</td>
+        </tr>
+        <tr>
+          <th>Gender</th>
+          <td>{{ data_Entry["patient_Gender"] }}</td>
+        </tr>
+        <tr>
+          <th>Diabetic Retinopathy Probability</th>
+          <td><b>{{ probability }} %</b></td>
+        </tr>
+      </table>
+    
+    </div>
+
+    <!-- <div class="row">
+      <table >
+        <tr>
+          <th>Diabetic Retinopathy Probability</th>
+          <td>{{ probability }} %</td>
+        </tr>
+      </table>
+    </div> -->
+
   </section>
   
   <script>
@@ -260,11 +300,9 @@
       </section> -->
 
 
-  <div id="output">
-
-    <h1>Probability of Having Diabetic Retinopathy :{{ probability[0][0] * 100 }}</h1>
-
-  </div>
+  <!-- <div id="output">
+    <h1>Probability of Having Diabetic Retinopathy :{{ probability }}</h1>
+  </div> -->
 
   {% endif %}
 
