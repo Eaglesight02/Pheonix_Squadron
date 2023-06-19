@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from typing import Annotated
 from pydantic import BaseModel
+from datetime import date, datetime
 
 import base64
 import tensorflow
@@ -35,10 +36,11 @@ class details(BaseModel):
     dr_Probability : float | None = None
     image_Path : str | None = None
 
-key_Path = "cloudkarya-internship-7518ba5e583d.json"
+key_Path = "key.json"
+project_id = "cloudkarya-internship"
 bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
 storage_Client = storage.Client.from_service_account_json(key_Path)
-bucket_Name = "demo_diabetic_retinopathy"
+bucket_Name = "diabetic-retinopathy_01"
 
 def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
     folder_Name = "images"
@@ -55,6 +57,17 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
 
     # Upload the data along with image path into Big Query
     table = 'cloudkarya-internship.patient_data.table_01'
+
+    # query = f"""
+    #         INSERT INTO `{project_id}.ImageData.ImageDataTable`
+    #         VALUES ('{image_path}', '{image_type}', '{patient_id}', '{patient_name}', 
+    #                 DATE('{dob}'), '{Gender}', '{patient_email}', 
+    #                 {pred1}, {pred2}, {pred3}, {pred4})
+    #         """
+    #         job = bigquery_client.query(query)
+    #         job.result()
+            
+
     errors = bigquery_Client.insert_rows_json(table, [data_Entry])
 
     if errors :
@@ -97,9 +110,29 @@ async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
 
     upload_Data(image, data_Entry, prediction)
 
-    return templates.TemplateResponse("index.html", {"request" : request, "data_Entry" : data_Entry, 
-                                                     "img" : image, "probability" : prediction})
+    return templates.TemplateResponse("index.html", {"request" : request, "probability": prediction, "img": image , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender})
 
+@app.post("/getdata")
+async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
+
+   query = f"""
+         SELECT  * FROM {project_id}.patient_data.table_01
+         WHERE patient_id = '{patient_id}';
+   """
+
+   df = bigquery_Client.query(query).to_dataframe()
+   print(df.head())
+   image_Path = df.iloc[0]["image_Path"]
+#    img = Image.open(image_Path)
+#    encoded_img =base64.b64encode(img).decode('utf-8')
+   prediction = df.iloc[0]['dr_Probability']
+   patient_Id = df.iloc[0]['patient_Id']
+   patient_Name=df.iloc[0]['patient_Name']
+   patient_Email=df.iloc[0]['patient_Email']
+   patient_Dob=df.iloc[0]['patient_Dob']
+   patient_Gender=df.iloc[0]['patient_Gender']
+
+   return templates.TemplateResponse("index.html", {"request": request, "probability": prediction, "img": image_Path , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender})
 
 
 # # if __name__ == '__dynamic__':

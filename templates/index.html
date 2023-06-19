@@ -15,11 +15,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
     integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+
 
   <style>
     .container1 {
-      max-width: 500px;
+      max-width: 600px;
       margin: 40px auto;
+      min-width: 5px;
     }
 
     .image-preview {
@@ -36,14 +40,14 @@
       max-height: 100%;
     }
     .table-container {
-      max-width: 500px;
-      margin: 40px auto;
-      margin-right: 100px;
+      max-width: 400px;
+      max-height: 300px;
+      padding-left: 60px;
     }
     .image-container {
       max-width: 500px;
       max-height: fit-content;
-      margin-left: 100px;
+      margin-right: 100px;
     }
     .report {
       display: flexbox;
@@ -51,9 +55,10 @@
 
     table {
       width: 100%;
+      height: auto;
       border-collapse: collapse;
       background-color: #f8f8f8;
-      float: left;
+      float: right;
     }
 
     th, td {
@@ -64,6 +69,19 @@
 
     th {
       background-color: #f2f2f2;
+    }
+
+    .image-box {
+      max-width: 400px;
+      max-height: 300px;
+      overflow: hidden;
+      padding-left: 100px;
+      padding-top: 5px;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: auto;
     }
   </style>
 </head>
@@ -112,21 +130,28 @@
     <div class='container'>
       <div class="row">
         <div class="col-md-6">
-      
-                  <p class="title">Upload the Fundus Image </p>
-                  <p>We will give you the Report</p>
-
-                  <div class="drag-area">
-                    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <header>Drag & Drop to Upload File</header>
-                    <span>OR</span>
-
-                    <button>Browse File</button>
-                    <input type="file" name="image" hidden>
-                  </div>
-
-                </div>
-        
+        <h2> Eye Care </h2>
+        <br>
+        <h4> Welcome to Our Website </h4>
+          <p> A platfrom designed to assist in the early detection of Diabetic Retinopathy using cutting-edge technology to analyze Fundus Images.</p>
+          <br>
+          <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
+            <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
+                  placeholder="Patient Id">
+              </div>
+              <div class="col-md-4">
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+              </div>
+          </form>
+          <div class="col-md-4">
+            <p> <a href="#form-data"  style="color:black" onclick="toggleForm()">New Patient?</a></p>
+          </div>
+          </div>
+        </div>
         <div class="col-md-6 text-center">
           <img src="/static/images/home_Image.jpeg" class="img-fluid top-img"
             style="width:500px;height:400px; padding-bottom:25px;">
@@ -134,10 +159,28 @@
       </div>
     </div>
     <img src="/static/images/wave1.png" class="bottom-img">
-    <!-- Add your banner image and headline here -->
+  </section>
+      <!-- Add your banner image and headline here -->
+
+    <!-- <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
+      <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
+          <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
+            placeholder="Patient Id">
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+    </form>
+    <div class="col-md-3">
+      <p> <a href="#form-data" onclick="toggleForm()">New Patient?</a></p>
+    </div>
+    </div> -->
 
   </section>
-  <button class="btn btn-secondary Open_button" onclick="toggleForm()">Form</button>
+  <!-- <button class="btn btn-secondary Open_button" onclick="toggleForm()">Form</button> -->
     <section id="form-data">
         <div class="container1">
           <div id="formContainer" style="display: none;">
@@ -215,7 +258,7 @@
     function submitForm() {
       // Add your code here to handle form submission
       // alert("Form submitted successfully!");
-      toggleForm();
+      // toggleForm();
       removeTable(); // Hide the form after submission
     }
 
@@ -239,29 +282,36 @@
       <img src = "{{ img }}" alt = "Image Not Found">
       <p>{{ img }}</p>
     </div> -->
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div class="image-box">
+          <img src="data:image/{{ image_format }};base64,{{ img }}" alt="Uploaded Image">
+        </div>
+      </div>
+    <div class="col-md-4">
     <div class = "table-container">
       <h2>Patient Details</h2>
       <table>
         <tr>
           <th>ID</th>
-          <td>{{ data_Entry["patient_Id"] }}</td>
+          <td>{{ patient_Id }}</td>
         </tr>
         <tr>
         <tr>
           <th>Name</th>
-          <td>{{ data_Entry["patient_Name"] }}</td>
+          <td>{{ patient_Name }}</td>
         </tr>
         <tr>
           <th>Email</th>
-          <td>{{ data_Entry["patient_Email"] }}</td>
+          <td>{{ patient_Email }}</td>
         </tr>
         <tr>
           <th>Date Of Birth</th>
-          <td>{{ data_Entry["patient_Dob"] }}</td>
+          <td>{{ patient_Dob }}</td>
         </tr>
         <tr>
           <th>Gender</th>
-          <td>{{ data_Entry["patient_Gender"] }}</td>
+          <td>{{ patient_Gender }}</td>
         </tr>
         <tr>
           <th>Diabetic Retinopathy Probability</th>
@@ -269,6 +319,7 @@
         </tr>
       </table>
     
+    </div>
     </div>
 
     <!-- <div class="row">
