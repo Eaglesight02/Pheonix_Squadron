@@ -50,7 +50,7 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
     blob.upload_from_file(image.file)
 
     # Get the image path from Cloud Storage
-    data_Entry["image_Path"] = f"https://storage.googleapis.com/{bucket_Name}/{blob.name}"
+    data_Entry["image_Path"] = f"https://storage.cloud.google.com/{bucket_Name}/{blob.name}"
     data_Entry["dr_Probability"] = prediction
 
     # Upload the data along with image path into Big Query
