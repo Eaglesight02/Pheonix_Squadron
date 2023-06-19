@@ -67,7 +67,7 @@ async def dynamic_file(request : Request):
 
 
 @app.post("/dynamic")
-async def dynamic(request : Request, image : Annotated[UploadFile, Form(...)],
+async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
                                     patient_Id : Annotated[str, Form(...)],
                                     patient_Name : Annotated[str,Form(...)],
                                     patient_Dob : Annotated[str,Form(...)],
