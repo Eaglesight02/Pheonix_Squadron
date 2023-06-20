@@ -21,13 +21,13 @@
 
   <style>
     .container1 {
-      max-width: 600px;
+      max-width: 800px;
       margin: 40px auto;
       min-width: 5px;
     }
 
     .image-preview {
-      width: 200px;
+      width: 300px;
       height: 200px;
       border: 1px solid #ddd;
       display: flex;
@@ -39,18 +39,21 @@
       max-width: 100%;
       max-height: 100%;
     }
-    .table-container {
+
+    .table-container1 {
       max-width: 400px;
       max-height: 300px;
       padding-left: 60px;
+
     }
-    .image-container {
-      max-width: 500px;
-      max-height: fit-content;
-      margin-right: 100px;
-    }
-    .report {
-      display: flexbox;
+
+    .table-container2 {
+      max-width: 400px;
+      max-height: 300px;
+      padding-top: 40px;
+      padding-left: 100px;
+      align-items: center;
+
     }
 
     table {
@@ -58,13 +61,14 @@
       height: auto;
       border-collapse: collapse;
       background-color: #f8f8f8;
-      float: right;
+      float: center;
     }
 
-    th, td {
+    th,
+    td {
       padding: 12px 20px;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #dddddd;
     }
 
     th {
@@ -73,16 +77,92 @@
 
     .image-box {
       max-width: 400px;
-      max-height: 300px;
+      height: 312px;
       overflow: hidden;
-      padding-left: 100px;
-      padding-top: 5px;
+      padding-left: 40px;
+      padding-top: 1.5px;
     }
 
     .image-box img {
       width: 100%;
-      height: auto;
+      height: 100%;
     }
+
+    .card3 {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      width:75.5%;
+      size: 20px;
+      word-wrap: break-word;
+      border-radius: 0.25rem;
+      margin-left:40px;
+    }
+
+    .card-body6{
+      flex: 1 1 auto;
+      position: center;
+      text-align: center;
+      color: azure;
+      text-shadow: 0 1px 2px rgb(255, 247, 247);
+      background-color: rgb(51, 173, 235);
+      font-size :30px;
+    }
+
+    .card4 {
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width:90%;
+    size: 20px;
+    word-wrap: break-word;
+    border-radius: 0.25rem;
+    }
+
+    .card5 {
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width:79%;
+    size: 20px;
+    word-wrap: break-word;
+    border-radius: 0.25rem;
+    }
+
+    .card-body7
+    {
+      flex: 1 1 auto;
+      /* position: center; */
+      text-align: left;
+      color: rgb(13, 14, 14);
+      text-shadow: 0 1px 2px rgb(120, 114, 114);
+      background-color: rgb(224, 240, 249);
+      font-size :20px;
+      padding: 0.5rem 0.5rem;
+    }
+
+    /* .card-body8{
+      flex: 1 1 auto;
+      position: center;
+      text-align: left;
+      color: rgb(13, 14, 14);
+      text-shadow: 0 1px 2px rgb(120, 114, 114);
+      background-color: rgb(224, 240, 249);
+      font-size :15px;
+      padding: 0.5rem 0.5rem;
+      font-weight: 400;
+      
+    } */
+
+    #Analysis
+    {
+      padding-left: 200px;
+      padding-right: 0px;
+    }
+
   </style>
 </head>
 
@@ -105,8 +185,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="#">ABOUT US</a>
-            </li>
-
+            </li> 
             <li class="nav-item">
               <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">FAQ'S</a>
             </li>
@@ -133,24 +212,28 @@
         <h2> Eye Care </h2>
         <br>
         <h4> Welcome to Our Website </h4>
-          <p> A platform designed to assist in the early detection of Diabetic Retinopathy using cutting-edge technology to analyze Fundus Images.</p>
+          <p> A platfrom designed to assist in the early detection of Diabetic Retinopathy using cutting-edge technology to analyze Fundus Images.</p>
           <br>
           <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
             <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
             <div class="row">
               <div class="col-md-4">
-                <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
-                <select id="dropdown" onselect="updatePatientIDs()" name="patient_id">
-                  <option value="Patient ID">Patient ID</option>
+                <select class="form-control" name="patient_id" id="patient_id" required>
+
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                    
                 </select>
-                <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
-                  placeholder="Patient Id"> -->
-                
               </div>
+
               <div class="col-md-4">
                 <button type="submit" class="btn btn-primary mb-2">Submit</button>
               </div>
           </form>
+
           <div class="col-md-4">
             <p> <a href="#form-data"  style="color:black" onclick="toggleForm()">New Patient?</a></p>
           </div>
@@ -183,60 +266,85 @@
     </div>
     </div> -->
 
-  </section>
   <!-- <button class="btn btn-secondary Open_button" onclick="toggleForm()">Form</button> -->
-    <section id="form-data">
-        <div class="container1">
-          <div id="formContainer" style="display: none;">
-            <form action="/dynamic" method="POST" enctype="multipart/form-data">
-              <h2>Patient Data Form</h2>
-              <div class="form-group">
-                 <label for="id">Patient ID</label>
-                <input type="text" class="form-control" name="patient_Id" id="id" placeholder="Enter Patient ID">
-              </div>
-              <div class="form-group">
-                 <label for="name">Name</label>
-                <input type="text" class="form-control" name="patient_Name" id="name" placeholder="Enter Patient Name">
-              </div>
-              <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="patient_Email" placeholder="Enter Patient Email">
-              </div>
-              <div class="form-group">
-                <label for="dob-input">Date of Birth</label>
-                <input type="text" id="dob-input" name="patient_Dob" placeholder="Select Date of Birth">
-              </div>
-              <div class="form-group">
-                <label for="gender">Gender</label>
-                <select class="form-control" name="patient_Gender" id="gender">
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <!-- <div class="form-group">
-                <label for="Image_type">Image Type</label>
-                <select class="form-control" name="image_Type" id="image_type">
-                  <option value="X-ray">X-ray</option>
-                  <option value="CT">CT Scan</option>
-                </select>
-              </div> -->
-              <!-- <div class="form-group">
-                <label for="address">Address</label>
-                <textarea class="form-control" id="address" rows="3"  name="patient_Address" placeholder="Enter patient address"></textarea>
-              </div> -->
-              <div class="form-group">
-                <label for="fundus">Fundus Image (Drag and drop here)</label>
-                <div class="image-preview" id="imagePreview">
-                  <img src="" alt="Image Preview">
-                </div>
-                <input type="file" class="form-control-file" id="fundus" name="image" accept="image/*" onchange="previewImage(event)">
-              </div>
-              <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
-            </form>
-          </div>
+  <section id="form-data">
+      <div class="container1">
 
+        <div id="formContainer" style="display: none;">
+          <form action="/dynamic" method="POST" enctype="multipart/form-data">
+            <br>
+
+            <div class="form-group">
+              <h2>Patient Data Form</h2>
+              <br>
+              <label for="id">Patient ID</label>
+              <input type="text" class="form-control" name="patient_Id" id="id" placeholder="Enter Patient ID" required>
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+              <input type="text" class="form-control" name="patient_Name" id="name" placeholder="Enter Patient Name" required> 
+            </div>
+            <br>
+
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" name="patient_Email" placeholder="Enter Patient Email" required>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-4">
+                  <label for="phone">Mobile Number</label>
+                  <input type="text" id="mobile" name="patient_Mobile" placeholder="Enter Mobile Number" required>
+                </div>
+                <br>  
+  
+                <div class="col-md-4">
+                  <label for="dob">Date of Birth</label>
+                  <input type="text" id="dob-input" name="patient_Dob" placeholder="Select Date of Birth" required>
+                </div>
+      
+                <!-- <div class="col-md-4">
+                  <label for="aadhar">Aadhar Number:</label>
+                  <input type="text" id="aadhar" name="patient_Aadhar" placeholder="Enter Aadhar Number" required>
+                </div> -->
+            </div>
+            <br>
+
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select class="form-control" name="patient_Gender" id="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <!-- <div class="form-group">
+              <label for="Image_type">Image Type</label>
+              <select class="form-control" name="image_Type" id="image_type">
+                <option value="X-ray">X-ray</option>
+                <option value="CT">CT Scan</option>
+              </select>
+            </div> -->
+            <!-- <div class="form-group">
+              <label for="address">Address</label>
+              <textarea class="form-control" id="address" rows="3"  name="patient_Address" placeholder="Enter patient address"></textarea>
+            </div> -->
+            <div class="form-group">
+              <label for="fundus">Fundus Image (Drag and drop here)</label>
+              <div class="image-preview" id="imagePreview">
+                <img src="" alt="Image Preview">
+              </div>
+              <input type="file" class="form-control-file" id="fundus" name="image" accept="image/*" onchange="previewImage(event)">
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+
+          </form>
         </div>
+
+      </div>
       <!-- Bootstrap JS -->
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       
@@ -244,7 +352,7 @@
         
         flatpickr("#dob-input", {
         dateFormat: "Y-m-d", // Adjust the format as per your requirement
-      });
+        });
 
         function toggleForm() {
           var formContainer = document.getElementById("formContainer");
@@ -252,92 +360,96 @@
     
           if (formContainer.style.display === "none") {
             formContainer.style.display = "block";
-            button.innerText = "Close Form";
-          } else {
+            button.innerText = "Close Form";} 
+          else {
             formContainer.style.display = "none";
-            button.innerText = "Open Form";
-      }
-    }
+            button.innerText = "Open Form";}
+        }
 
-    function submitForm() {
-      // Add your code here to handle form submission
-      // alert("Form submitted successfully!");
-      // toggleForm();
-      removeTable(); // Hide the form after submission
-    }
+        function submitForm() {
+          // Add your code here to handle form submission
+          // alert("Form submitted successfully!");
+          // toggleForm();
+          removeTable(); // Hide the form after submission
+        }
 
-    function previewImage(event) {
-      var reader = new FileReader();
-      var imagePreview = document.getElementById("imagePreview");
-      var image = imagePreview.querySelector("img");
+        function previewImage(event) {
+          var reader = new FileReader();
+          var imagePreview = document.getElementById("imagePreview");
+          var image = imagePreview.querySelector("img");
 
-      reader.onload = function () {
-        image.src = reader.result;
-      };
+          reader.onload = function () {
+            image.src = reader.result;};
 
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  </script>
+          reader.readAsDataURL(event.target.files[0]);
+        }
+
+      </script>
+
   </section>
 
   {% if img %}
-  <section class = "report">
-    <!-- <div class = "image-container">
-      <img src = "{{ img }}" alt = "Image Not Found">
-      <p>{{ img }}</p>
-    </div> -->
-    <div class="row">
-      <div class="col-md-6 text-center">
-        <div class="image-box">
-          <img src=" {{ img }}" alt="Uploaded Image">
-          <!--<img src="{{ image_path }}" alt="Patient Image">!-->
+  <section id="Analysis">
 
+    <div class="row" >
+      <div class="card3" >
+        <div class="card-body6" >Name: {{patient_Name}}</div>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+
+      <div class="col-md-5">
+        <div class="image-box">
+          <!-- {% if img %} -->
+          <img src="{{ img }}" alt = "Image Not Found">
+          <!-- {% else %}
+          <img src="data:image/{{ image_format }};base64,{{ img }}">
+          {% endif %} -->
         </div>
       </div>
-    <div class="col-md-4">
-    <div class = "table-container">
-      <h2>Patient Details</h2>
-      <table>
-        <tr>
-          <th>ID</th>
-          <td>{{ patient_Id }}</td>
-        </tr>
-        <tr>
-        <tr>
-          <th>Name</th>
-          <td>{{ patient_Name }}</td>
-        </tr>
-        <tr>
-          <th>Email</th>
-          <td>{{ patient_Email }}</td>
-        </tr>
-        <tr>
-          <th>Date Of Birth</th>
-          <td>{{ patient_Dob }}</td>
-        </tr>
-        <tr>
-          <th>Gender</th>
-          <td>{{ patient_Gender }}</td>
-        </tr>
-        <tr>
-          <th>Diabetic Retinopathy Probability</th>
-          <td><b>{{ probability }} %</b></td>
-        </tr>
-      </table>
+
+      <div class="col-md-5">
+
+        <div class="row" >
+          <div class="card4" >
+            <div class="card-body7" >DOB: {{patient_Dob}}</div>
+          </div>
+        </div>
+        <br>
+
+        <div class="row" >
+          <div class="card4" >
+            <div class="card-body7" >Gender: {{patient_Gender}}</div>
+          </div>
+        </div>
+        <br>
     
-    </div>
-    </div>
+        <div class="row" >
+          <div class="card4" >
+            <div class="card-body7">Date of Test :{{ test_Date }}</div>
+            </div>
+          </div>
+        <br>
 
-    <!-- <div class="row">
-      <table >
-        <tr>
-          <th>Diabetic Retinopathy Probability</th>
-          <td>{{ probability }} %</td>
-        </tr>
-      </table>
-    </div> -->
+        <div class="row" >
+          <!-- <div class="col-md-5"> -->
+          <div class="card4" >
+            <div class="card-body7" style="background-color:
+            {% if probability > 50 %} 
+            #f55d6c;color: white
+            {% elif probability < 20 %}
+            #85ed79;
+            {% else %}
+            #f9fc90;
+            {% endif %}">Probability of Having Diabetic Retinopathy : {{ probability }} %</div>
+          </div>
+        </div>
 
-  </section>
+      </div>
+    </section>
+  
   
   <script>
   
@@ -366,7 +478,7 @@
     <section id="information-section">
       <h2>Diabetic Retinopathy Information</h2>
       <!-- Add detailed information about Diabetic Retinopathy here -->
-      <p>There are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
+      <p>Thee are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
     </section>
 
 
@@ -387,57 +499,3 @@
 </body>
 
 </html>
-<script>
-  function updatePatientIDs() {
-  var dropdown = document.getElementById("dropdown");
-  var selectedOption = dropdown.value;
-  var patientIDInput = document.getElementById("patientID");
-
-  // Update patient IDs based on selected option
-  switch (selectedOption) {
-    case "01":
-      patientIDInput.value = "01";
-      break;
-    case "02":
-      patientIDInput.value = "02";
-      break;
-    case "03":
-      patientIDInput.value = "03";
-      break;
-    case "04":
-      patientIDInput.value = "04";
-      break;
-    case "05":
-      patientIDInput.value = "05";
-      break;
-    default:
-      patientIDInput.value = "";
-      break;
-  }
-}
-
-function createOptions() {
-  var dropdown = document.getElementById("dropdown");
-  var selectedOption = dropdown.value;
-
-  // Clear existing options
-  dropdown.innerHTML = "";
-
-  // Create new options
-  var options = ["01", "02", "03", "04", "05"];
-  options.forEach(function (option) {
-    var optionElement = document.createElement("option");
-    optionElement.value = option;
-    optionElement.text = option;
-    dropdown.appendChild(optionElement);
-  });
-
-  // Set the selected option after recreating the options
-  dropdown.value = selectedOption;
-}
-
-var dropdown = document.getElementById("dropdown");
-dropdown.addEventListener("change", updatePatientIDs);
-dropdown.addEventListener("click", createOptions);
-
-</script>

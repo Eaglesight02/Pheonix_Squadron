@@ -36,7 +36,7 @@ class details(BaseModel):
     dr_Probability : float | None = None
     image_Path : str | None = None
 
-key_Path = "cloudkarya-internship key gcs.json"
+key_Path = "key.json"
 project_id = "cloudkarya-internship"
 bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
 storage_Client = storage.Client.from_service_account_json(key_Path)
@@ -56,7 +56,7 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
     data_Entry["dr_Probability"] = prediction
 
     # Upload the data along with image path into Big Query
-    table = 'cloudkarya-internship.patient_data.table_01'
+    table = 'cloudkarya-internship.patient_data.demo_table_01'
 
     # query = f"""
     #         INSERT INTO `{project_id}.ImageData.ImageDataTable`
@@ -84,10 +84,11 @@ async def dynamic_file(request : Request):
 @app.post("/dynamic")
 async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
                                     patient_Id : Annotated[str, Form(...)],
-                                    patient_Name : Annotated[str,Form(...)],
-                                    patient_Dob : Annotated[str,Form(...)],
-                                    patient_Email : Annotated[str,Form(...)],
-                                    patient_Gender : Annotated[str,Form(...)],):
+                                    patient_Name : Annotated[str, Form(...)],
+                                    patient_Dob : Annotated[str, Form(...)],
+                                    patient_Email : Annotated[str, Form(...)],
+                                    patient_Gender : Annotated[str, Form(...)],
+                                    patient_Mobile : Annotated[str, Form(...)]):
 
     # Read the Image and Convert it into Required Format
     data = await image.read()
@@ -107,12 +108,14 @@ async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
     prediction = model.predict(img)[0][0] * 100
     # prediction = [[0.8881818111881]]
     os.remove(model_File)
+    
+    test_Date = str(datetime.now().date())
 
-    data_Entry = {"patient_Id": patient_Id, "patient_Name": patient_Name, "patient_Dob": patient_Dob, "patient_Email": patient_Email, "patient_Gender": patient_Gender}
+    data_Entry = {"patient_Id": patient_Id, "patient_Name": patient_Name, "patient_Dob": patient_Dob, "patient_Mobile": patient_Mobile, "patient_Email": patient_Email, "patient_Gender": patient_Gender, "test_Date": test_Date}
 
     image_Path = upload_Data(image, data_Entry, prediction)
 
-    return templates.TemplateResponse("index.html", {"request" : request, "probability": prediction, "img": image_Path , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender})
+    return templates.TemplateResponse("index.html", {"request" : request, "probability": prediction, "img": image_Path , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender, "test_Date": test_Date})
 
 
     
@@ -120,7 +123,7 @@ async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
 async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
 
    query = f"""
-         SELECT  * FROM {project_id}.patient_data.table_01
+         SELECT  * FROM {project_id}.patient_data.demo_table_01
          WHERE patient_id = '{patient_id}';
    """
 
@@ -131,12 +134,13 @@ async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
    #encoded_img =base64.b64encode(img).decode('utf-8')
    prediction = df.iloc[0]['dr_Probability']
    patient_Id = df.iloc[0]['patient_Id']
-   patient_Name=df.iloc[0]['patient_Name']
-   patient_Email=df.iloc[0]['patient_Email']
-   patient_Dob=df.iloc[0]['patient_Dob']
-   patient_Gender=df.iloc[0]['patient_Gender']
+   patient_Name = df.iloc[0]['patient_Name']
+   patient_Email = df.iloc[0]['patient_Email']
+   patient_Dob = df.iloc[0]['patient_Dob']
+   patient_Gender = df.iloc[0]['patient_Gender']
+   test_Date = df.iloc[0]['test_Date']
 
-   return templates.TemplateResponse("index.html", {"request": request, "probability": prediction, "img": image_Path , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender})
+   return templates.TemplateResponse("index.html", {"request": request, "probability": prediction, "img": image_Path , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender, "test_Date": test_Date})
    
 
 # # if __name__ == '__dynamic__':
