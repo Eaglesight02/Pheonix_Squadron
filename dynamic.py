@@ -36,7 +36,7 @@ class details(BaseModel):
     dr_Probability : float | None = None
     image_Path : str | None = None
 
-key_Path = "key.json"
+key_Path = "cloudkarya-internship key gcs.json"
 project_id = "cloudkarya-internship"
 bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
 storage_Client = storage.Client.from_service_account_json(key_Path)
@@ -52,7 +52,7 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
     blob.upload_from_file(image.file)
 
     # Get the image path from Cloud Storage
-    data_Entry["image_Path"] = f"https://storage.cloud.google.com/{bucket_Name}/{blob.name}"
+    data_Entry["image_Path"] = f"https://storage.googleapis.com/{bucket_Name}/{blob.name}"
     data_Entry["dr_Probability"] = prediction
 
     # Upload the data along with image path into Big Query
@@ -73,10 +73,12 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
     if errors :
         raise Exception(f'Error inserting rows into BigQuery : {errors}')
 
+    return data_Entry["image_Path"]
+
 
 @app.get("/")
 async def dynamic_file(request : Request):
-    return templates.TemplateResponse("index.html", {"request" : request})
+    return templates.TemplateResponse("index.html", {"requesdat" : request})
 
 
 @app.post("/dynamic")
@@ -89,7 +91,7 @@ async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
 
     # Read the Image and Convert it into Required Format
     data = await image.read()
-    encoded_Image = base64.b64encode(data)
+    #encoded_Image = base64.b64encode(data)
     img = Image.open(io.BytesIO(data))
     img = img.resize((224, 224))
     img = np.array(img) / 255.0
@@ -108,10 +110,12 @@ async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
 
     data_Entry = {"patient_Id": patient_Id, "patient_Name": patient_Name, "patient_Dob": patient_Dob, "patient_Email": patient_Email, "patient_Gender": patient_Gender}
 
-    upload_Data(image, data_Entry, prediction)
+    image_Path = upload_Data(image, data_Entry, prediction)
 
-    return templates.TemplateResponse("index.html", {"request" : request, "probability": prediction, "img": image , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender})
+    return templates.TemplateResponse("index.html", {"request" : request, "probability": prediction, "img": image_Path , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender})
 
+
+    
 @app.post("/getdata")
 async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
 
@@ -123,8 +127,8 @@ async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
    df = bigquery_Client.query(query).to_dataframe()
    print(df.head())
    image_Path = df.iloc[0]["image_Path"]
-#    img = Image.open(image_Path)
-#    encoded_img =base64.b64encode(img).decode('utf-8')
+   #img = Image.open(image_Path)
+   #encoded_img =base64.b64encode(img).decode('utf-8')
    prediction = df.iloc[0]['dr_Probability']
    patient_Id = df.iloc[0]['patient_Id']
    patient_Name=df.iloc[0]['patient_Name']
@@ -133,7 +137,7 @@ async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
    patient_Gender=df.iloc[0]['patient_Gender']
 
    return templates.TemplateResponse("index.html", {"request": request, "probability": prediction, "img": image_Path , "patient_Id": patient_Id, "patient_Name": patient_Name,"patient_Dob": patient_Dob,"patient_Email": patient_Email,"patient_Gender": patient_Gender})
-
+   
 
 # # if __name__ == '__dynamic__':
 # #    uvicorn.run(app, host='0.0.0.0', port=8000)
