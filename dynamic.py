@@ -47,6 +47,7 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
     bucket = storage_Client.get_bucket(bucket_Name)
 
     # Upload the image into the Cloud Storage
+    image.filename = f"""{data_Entry["patient_Id"]}_({data_Entry["test_Date"]})"""
     blob = bucket.blob(f'{folder_Name}/{image.filename}')
     image.file.seek(0)
     blob.upload_from_file(image.file)

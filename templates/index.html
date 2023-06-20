@@ -115,9 +115,10 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    text-align: center;
     width:90%;
     size: 20px;
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
     border-radius: 0.25rem;
     }
 
@@ -389,7 +390,7 @@
 
     <div class="row" >
       <div class="card3" >
-        <div class="card-body6" >Name: {{patient_Name}}</div>
+        <div class="card-body6" >Name : {{patient_Name}}</div>
       </div>
     </div>
     <br>
@@ -410,24 +411,25 @@
 
         <div class="row" >
           <div class="card4" >
-            <div class="card-body7" >DOB: {{patient_Dob}}</div>
+            <div class="card-body7">Date of Test : {{ test_Date }}</div>
+            </div>
+          </div>
+        <br>
+
+        <div class="row" >
+          <div class="card4" >
+            <div class="card-body7" id = "age_Display"></div>
           </div>
         </div>
         <br>
 
         <div class="row" >
           <div class="card4" >
-            <div class="card-body7" >Gender: {{patient_Gender}}</div>
+            <div class="card-body7" >Gender : {{patient_Gender}}</div>
           </div>
         </div>
         <br>
     
-        <div class="row" >
-          <div class="card4" >
-            <div class="card-body7">Date of Test :{{ test_Date }}</div>
-            </div>
-          </div>
-        <br>
 
         <div class="row" >
           <!-- <div class="col-md-5"> -->
@@ -439,7 +441,7 @@
             #00ff00;
             {% else %}
             #ffff00;
-            {% endif %}">Probability of Having Diabetic Retinopathy : {{ probability }} %</div>
+            {% endif %}">Probability of Having Diabetic Retinopathy : <b>{{ probability }} %</b></div>
           </div>
         </div>
 
@@ -453,6 +455,21 @@
         var table = document.getElementById("patientTable");
         table.style.display = "none";
       }
+
+      function calculate_Age(dateOfBirth) {
+        var today = new Date();
+        var birthDate = new Date(dateOfBirth);
+
+        var yearsDiff = today.getFullYear() - birthDate.getFullYear();
+
+        if (today.getMonth() < birthDate.getMonth() ||
+          (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) 
+            {yearsDiff--;}
+        return yearsDiff;
+      }
+
+      var ageDisplay = document.getElementById('age_Display');
+      ageDisplay.textContent = "Age : " + calculate_Age("{{patient_Dob}}");
   </script>
   
 
