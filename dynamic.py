@@ -78,7 +78,7 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
 
 @app.get("/")
 async def dynamic_file(request : Request):
-    return templates.TemplateResponse("index.html", {"requesdat" : request})
+    return templates.TemplateResponse("index.html", {"request" : request})
 
 
 @app.post("/dynamic")
