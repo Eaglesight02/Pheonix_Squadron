@@ -133,15 +133,19 @@
         <h2> Eye Care </h2>
         <br>
         <h4> Welcome to Our Website </h4>
-          <p> A platfrom designed to assist in the early detection of Diabetic Retinopathy using cutting-edge technology to analyze Fundus Images.</p>
+          <p> A platform designed to assist in the early detection of Diabetic Retinopathy using cutting-edge technology to analyze Fundus Images.</p>
           <br>
           <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
             <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
             <div class="row">
               <div class="col-md-4">
                 <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
-                  placeholder="Patient Id">
+                <select id="dropdown" onselect="updatePatientIDs()" name="patient_id">
+                  <option value="Patient ID">Patient ID</option>
+                </select>
+                <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+                  placeholder="Patient Id"> -->
+                
               </div>
               <div class="col-md-4">
                 <button type="submit" class="btn btn-primary mb-2">Submit</button>
@@ -362,7 +366,7 @@
     <section id="information-section">
       <h2>Diabetic Retinopathy Information</h2>
       <!-- Add detailed information about Diabetic Retinopathy here -->
-      <p>Thee are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
+      <p>There are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
     </section>
 
 
@@ -383,3 +387,57 @@
 </body>
 
 </html>
+<script>
+  function updatePatientIDs() {
+  var dropdown = document.getElementById("dropdown");
+  var selectedOption = dropdown.value;
+  var patientIDInput = document.getElementById("patientID");
+
+  // Update patient IDs based on selected option
+  switch (selectedOption) {
+    case "01":
+      patientIDInput.value = "01";
+      break;
+    case "02":
+      patientIDInput.value = "02";
+      break;
+    case "03":
+      patientIDInput.value = "03";
+      break;
+    case "04":
+      patientIDInput.value = "04";
+      break;
+    case "05":
+      patientIDInput.value = "05";
+      break;
+    default:
+      patientIDInput.value = "";
+      break;
+  }
+}
+
+function createOptions() {
+  var dropdown = document.getElementById("dropdown");
+  var selectedOption = dropdown.value;
+
+  // Clear existing options
+  dropdown.innerHTML = "";
+
+  // Create new options
+  var options = ["01", "02", "03", "04", "05"];
+  options.forEach(function (option) {
+    var optionElement = document.createElement("option");
+    optionElement.value = option;
+    optionElement.text = option;
+    dropdown.appendChild(optionElement);
+  });
+
+  // Set the selected option after recreating the options
+  dropdown.value = selectedOption;
+}
+
+var dropdown = document.getElementById("dropdown");
+dropdown.addEventListener("change", updatePatientIDs);
+dropdown.addEventListener("click", createOptions);
+
+</script>

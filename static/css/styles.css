@@ -12,7 +12,7 @@ body {
     color: #333;
   }
   h2{
-    color:white
+    color:rgb(19, 16, 16)
   }
   
   a {
@@ -217,7 +217,10 @@ body {
   object-fit: cover;
   border-radius: 5px;
 }
-
+#dropdown{
+  height: 36px;
+  width:160px;
+}
 /* From section */
 #form-data
 {
