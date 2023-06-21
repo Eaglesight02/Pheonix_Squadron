@@ -214,27 +214,9 @@
         <br>
         <h4> Welcome to Our Website </h4>
           <p> A platform designed to assist in the early detection of Diabetic Retinopathy using cutting-edge technology to analyze Fundus Images.</p>
-          <br>
-          <form class="form-inline" style="padding-left: 10px;" action="/getdata" method="POST">
-            <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
-            <div class="row">
-              <div class="col-md-4">
-                <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
-                <select id="dropdown" onselect="updatePatientIDs()" name="patient_id">
-                  <option value="Patient ID">Patient ID</option>
-                </select>
-                
-              </div>
-
-              <div class="col-md-4">
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
-              </div>
-          </form>
-
-          <div class="col-md-4">
-            <p> <a href="#form-data"  style="color:black" onclick="toggleForm()">New Patient?</a></p>
-          </div>
-          </div>
+          <p>Diabetic retinopathy (also known as diabetic eye disease), is a medical condition in which damage occurs to the retina due to diabetes mellitus.</p>
+          <p>Diabetic retinopathy affects up to 80 percent of those who have had both type 1 and type 2 diabetes for 20 years or more.</p>
+          <p>The longer a person has diabetes, the higher his or her chances of developing diabetic retinopathy. </p>
         </div>
         <div class="col-md-6 text-center">
           <img src="/static/images/home_Image.jpeg" class="img-fluid top-img"
@@ -384,6 +366,28 @@
       </script>
 
   </section>
+  <section>
+    <form class="form-inline" style="padding-left: 240px;" action="/getdata" method="POST">
+      <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
+      <div class="row">
+        <div class="col-md-4">
+          <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
+          <select id="dropdown" onselect="updatePatientIDs()" name="patient_id">
+            <option value="Patient ID">Patient ID</option>
+          </select>
+          <button type="submit" class="btn btn-primary mb-2">Submit</button>
+
+          
+        </div>
+
+        <div class="col-md-4">
+        </div>
+    </form>
+
+    <div class="col-md-4">
+      <p> <a href="#form-data"  style="color:black;font-size: 16px;" onclick="toggleForm()">New Patient?</a></p>
+    </div>
+  </section>
 
   {% if img %}
   <section id="Analysis">
@@ -491,7 +495,9 @@
     <section id="information-section">
       <h2>Diabetic Retinopathy Information</h2>
       <!-- Add detailed information about Diabetic Retinopathy here -->
-      <p>Thee are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative</p>
+      <p>There are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative 
+         <a href="https://en.wikipedia.org/wiki/Diabetic_retinopathy">For more Information</a>
+      </p>
     </section>
 
 
