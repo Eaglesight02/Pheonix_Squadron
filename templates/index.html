@@ -181,18 +181,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto" style="float:right">
-            <li class="nav-item" style="float:right">
-              <a class="nav-link active" aria-current="page" href="#">PATIENT INFO</a>
+            <li class="nav-item">
+              <a class="nav-link active" href="#Analysis">PATIENTS</a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link active" href="#">ABOUT US</a>
-            </li> 
-            <li class="nav-item">
-              <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">FAQ'S</a>
+              <a class="nav-link active" href="#form-data" onclick="toggleForm()" tabindex="-1" aria-disabled="true">NEW PATIENT</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">SIGNUP/LOGIN</a>
             </li>
+          
           </ul>
 
           <!-- <ul class="navbar-nav ms-auto" >
@@ -366,7 +365,10 @@
       </script>
 
   </section>
-  <section>
+
+  {% if img %}
+  <section id="Analysis">
+
     <form class="form-inline" style="padding-left: 240px;" action="/getdata" method="POST">
       <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
       <div class="row">
@@ -383,15 +385,7 @@
         <div class="col-md-4">
         </div>
     </form>
-
-    <div class="col-md-4">
-      <p> <a href="#form-data"  style="color:black;font-size: 16px;" onclick="toggleForm()">New Patient?</a></p>
-    </div>
-  </section>
-
-  {% if img %}
-  <section id="Analysis">
-
+    
     <div class="row" >
       <div class="card3" >
         <div class="card-body6" >Name : {{patient_Name}}</div>
