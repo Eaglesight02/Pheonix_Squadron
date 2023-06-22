@@ -36,7 +36,7 @@ class details(BaseModel):
     dr_Probability : float | None = None
     image_Path : str | None = None
 
-key_Path = "cloudkarya-internship-bca5dd5466a5.json"
+key_Path = "key.json"
 project_id = "cloudkarya-internship"
 bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
 storage_Client = storage.Client.from_service_account_json(key_Path)
@@ -106,7 +106,7 @@ async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
     model = keras.models.load_model(model_File)
 
     # Get the Prediction of Our Model
-    prediction = model.predict(img)[0][0] * 100
+    prediction = round(model.predict(img)[0][0] * 100, 2)
     # prediction = [[0.8881818111881]]
     os.remove(model_File)
     
@@ -133,7 +133,7 @@ async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
    image_Path = df.iloc[0]["image_Path"]
    #img = Image.open(image_Path)
    #encoded_img =base64.b64encode(img).decode('utf-8')
-   prediction = df.iloc[0]['dr_Probability']
+   prediction = round(df.iloc[0]['dr_Probability'], 2)
    patient_Id = df.iloc[0]['patient_Id']
    patient_Name = df.iloc[0]['patient_Name']
    patient_Email = df.iloc[0]['patient_Email']

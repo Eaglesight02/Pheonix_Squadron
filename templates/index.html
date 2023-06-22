@@ -140,7 +140,7 @@
       text-align: left;
       color: rgb(13, 14, 14);
       text-shadow: 0 1px 2px rgb(120, 114, 114);
-      background-color: rgb(224, 240, 249);
+      background-color: rgb(142, 193, 254);
       font-size :20px;
       padding: 0.5rem 0.5rem;
     }
@@ -162,6 +162,11 @@
     {
       padding-left: 200px;
       padding-right: 0px;
+    }
+
+    .dropdrown {
+      padding-bottom: 40px;
+      padding-left: 40px;
     }
 
   </style>
@@ -366,26 +371,31 @@
 
   </section>
 
-  {% if img %}
   <section id="Analysis">
+    <div class="dropdrown">
+      <form class="form-inline" id="form-inline" style="padding-left: 40px;" action="/getdata" method="POST">
+        <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
+        <div class="row ">
+          <div class="col-md-4">
+            <select class="form-control" name="patient_Id" id="patient_id" required>
+              <option value="123456789012">01</option>
+              <option value="098765432109">02</option>
+              <option value="245678901231">03</option>
+              <option value="102938475610">04</option>
+              <option value="342567819042">05</option>
 
-    <form class="form-inline" style="padding-left: 240px;" action="/getdata" method="POST">
-      <h4 style="color:rgb(20, 49, 77)">Search for a Report ?</h4>
-      <div class="row">
-        <div class="col-md-4">
-          <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
-          <select id="dropdown" onselect="updatePatientIDs()" name="patient_id">
-            <option value="Patient ID">Patient ID</option>
-          </select>
-          <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            </select>
+            <!-- <label class="sr-only" for="inlineFormInputName2">Patient Id</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="patient_id"
+          placeholder="Patient Id"> -->
+          </div>
+          <div class="col-md-4 ">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          </div>
+      </form>
+    </div>
 
-          
-        </div>
-
-        <div class="col-md-4">
-        </div>
-    </form>
-    
+    {% if img %}
     <div class="row" >
       <div class="card3" >
         <div class="card-body6" >Name : {{patient_Name}}</div>
@@ -394,7 +404,6 @@
     <br>
 
     <div class="row">
-
       <div class="col-md-5">
         <div class="image-box">
           <!-- {% if img %} -->
@@ -406,12 +415,11 @@
       </div>
 
       <div class="col-md-5">
-
         <div class="row" >
           <div class="card4" >
             <div class="card-body7">Date of Test : {{ test_Date }}</div>
-            </div>
           </div>
+        </div>
         <br>
 
         <div class="row" >
@@ -428,27 +436,23 @@
         </div>
         <br>
     
-
         <div class="row" >
           <!-- <div class="col-md-5"> -->
           <div class="card4" >
             <div class="card-body7" style="background-color:
             {% if probability > 60 %} 
-            #ff0000;color: white
+            #fb5252;color: white
             {% elif probability < 30 %}
-            #00ff00;
+            #f9fc5f;
             {% else %}
-            #ffff00;
+            #93f75e;
             {% endif %}">Probability of Having Diabetic Retinopathy : <b>{{ probability }} %</b></div>
+            </div>
           </div>
         </div>
-
-      </div>
     </section>
   
-  
-  <script>
-  
+    <script>
         function removeTable() {
         var table = document.getElementById("patientTable");
         table.style.display = "none";
@@ -468,32 +472,16 @@
 
       var ageDisplay = document.getElementById('age_Display');
       ageDisplay.textContent = "Age : " + calculate_Age("{{patient_Dob}}");
-  </script>
-  
+    </script>
 
-    <!-- <section id="Display">
-   
-      <div >
-        <button type="submit">Result</button>
-        </div>
-        <script src="/static/script1.js"></script>
-      </section> -->
-
-
-  <!-- <div id="output">
-    <h1>Probability of Having Diabetic Retinopathy :{{ probability }}</h1>
-  </div> -->
-
-  {% endif %}
+    {% endif %}
 
     <section id="information-section">
       <h2>Diabetic Retinopathy Information</h2>
-      <!-- Add detailed information about Diabetic Retinopathy here -->
       <p>There are Four Stages of Diabetic Retinopathy : Mild, Moderate, Severe, Proliferative 
          <a href="https://en.wikipedia.org/wiki/Diabetic_retinopathy">For more Information</a>
       </p>
     </section>
-
 
 
     <footer>
@@ -509,9 +497,11 @@
 
     <!-- Add your JavaScript file link here -->
     <script src="../static/script.js"></script>
+
 </body>
+
 </html>
-<script>
+<!-- <script>
   function updatePatientIDs() {
   var dropdown = document.getElementById("dropdown");
   var selectedOption = dropdown.value;
@@ -563,7 +553,4 @@ var dropdown = document.getElementById("dropdown");
 dropdown.addEventListener("change", updatePatientIDs);
 dropdown.addEventListener("click", createOptions);
 
-</script>
-
-
-</html>
+</script> -->
