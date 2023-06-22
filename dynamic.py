@@ -47,7 +47,6 @@ def upload_Data(image : UploadFile, data_Entry : dict, prediction : float):
     bucket = storage_Client.get_bucket(bucket_Name)
 
     # Upload the image into the Cloud Storage
-    image.filename = f"""{data_Entry["patient_Id"]}_({data_Entry["test_Date"]})"""
     blob = bucket.blob(f'{folder_Name}/{image.filename}')
     image.file.seek(0)
     blob.upload_from_file(image.file)
@@ -121,11 +120,11 @@ async def dynamic(request : Request, image : Annotated[UploadFile, File(...)],
 
     
 @app.post("/getdata")
-async def get_data(request: Request,patient_id:Annotated[str,Form(...)]):
+async def get_data(request: Request,patient_Id:Annotated[str,Form(...)]):
 
    query = f"""
          SELECT  * FROM {project_id}.patient_data.demo_table_01
-         WHERE patient_id = '{patient_id}';
+         WHERE patient_Id = '{patient_Id}';
    """
 
    df = bigquery_Client.query(query).to_dataframe()
