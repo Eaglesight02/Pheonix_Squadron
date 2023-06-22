@@ -8,3 +8,11 @@ python-dotenv
 pandas
 Jinja2==3.0.3
 python-multipart
+numpy
+Pillow
+matplotlib
+tensorflow
+h5py
+google-cloud-bigquery
+db-dtypes
+google-cloud-storage

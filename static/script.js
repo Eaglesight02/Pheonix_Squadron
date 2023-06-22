@@ -30,6 +30,10 @@ function handleImageUpload(event) {
   
     // Read the uploaded image file as a Data URL
     reader.readAsDataURL(file);
+    
+    // const result_Container = document.querySelector("#prediction")
+    // result_Container.innerHTML = "";
+    // result_Container.appendChild("Probability of Having Diabetic Retinopathy : {{ probability }}")
   }
   
   // Add an event listener to the image upload form
